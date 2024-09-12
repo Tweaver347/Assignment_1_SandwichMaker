@@ -61,7 +61,6 @@ class SandwichMachine:
         nickels = int(input("how many nickels?: ")) * 0.05
         return large_dollars + half_dollars + quarters + nickels
 
-
     def transaction_result(self, coins, cost):
             """Return True when the payment is accepted, or False if money is insufficient.
                Hint: use the output of process_coins() function for cost input"""
@@ -74,26 +73,42 @@ class SandwichMachine:
                 print("Sorry, that’s not enough money. Money refunded.")
                 return False
 
-
     def make_sandwich(self, sandwich_size, order_ingredients):
             """Deduct the required ingredients from the resources.
                Hint: no output"""
             for item, amount in order_ingredients.items():
                 self.machine_resources[item] -= amount
+            print(f"{sandwich_size} sandwich is ready. Bon appetit!")
+
+def report(self):
+    """Prints the current resources available in the machine."""
+    print(f"Bread: {self.machine_resources['bread']} slice(s)")
+    print(f"Ham: {self.machine_resources['ham']} slice(s)")
+    print(f"Cheese: {self.machine_resources['cheese']} ounce(s)\n")
 
 
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
 machine = SandwichMachine(resources)
 
 is_on = True
+
 while is_on:
     choice = input("What would you like? (small/medium/large/off/report): ").lower()
 
-    if choice == "Exit":
+    if choice == "off":
         is_on = False
+    elif choice == "report":
+        report(machine)
     elif choice in recipes:
         sandwich = recipes[choice]
         if machine.check_resources(sandwich['ingredients']):
             payment = machine.process_coins()
             if machine.transaction_result(payment, sandwich['cost']):
                 machine.make_sandwich(choice, sandwich['ingredients'])
+
+                if choice == "off":
+                    is_on = False
+                elif choice == "report":
+                    report(machine)
+                elif choice in recipes:
+                    sandwich = recipes[choice]
