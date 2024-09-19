@@ -2,7 +2,8 @@ class Cashier:
     def process_coins(self):
         # Logic to process inserted coins
         print("Please insert coins.")
-        total = int(input("How many quarters? ")) * 0.25
+        total = int(input("How many dollars? "))
+        total += int(input("How many quarters? ")) * 0.25
         total += int(input("How many dimes? ")) * 0.10
         total += int(input("How many nickels? ")) * 0.05
         total += int(input("How many pennies? ")) * 0.01
